@@ -18,10 +18,11 @@ export default function Index() {
   return (
     <main>
       <div>
-        <fetcher.Form method="get" action="/flights/search-by-destination">
-          <Input name="q" />
-          <Button type="submit">search</Button>
-        </fetcher.Form>
+          <Typography variant="h1" className="mb-6">
+            Departures
+          </Typography>
+          <SearchForm fetcher={fetcher} />
+
           <div className="flex flex-col gap-y-5 mt-4">
             {isLoading && <Spinner />}
             {!isLoading &&
