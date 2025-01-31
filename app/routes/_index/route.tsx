@@ -32,6 +32,14 @@ export default function Index() {
               );
             })}
       </div>
+          {isEmpty && (
+            <PageMessage
+              icon={IconMoodEmpty}
+              header="No results found"
+              content="Modify your search criteria and try again"
+            />
+          )}
+        </div>
     </main>
   );
 }
