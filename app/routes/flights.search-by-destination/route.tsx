@@ -1,10 +1,19 @@
-import { json, LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { makeEnhancedLoader } from "~/helpers/makeEnhancedLoader";
 import { searchFlightsByAirport } from "~/services/flights/search-flights-by-airport";
+import { schema } from "./schema";
+import { asyncDelay } from "~/helpers/async-delay";
 
-export function loader({ request }: LoaderFunctionArgs) {
-  const url = new URL(request.url);
+export const loader = makeEnhancedLoader(
+  { searchParamsSchema: schema },
+  async ({ searchParamsData }) => {
+    await asyncDelay(2000);
 
-  const query = url.searchParams.get("q") || "";
-
-  return json(searchFlightsByAirport({ query }));
-}
+    return json({
+      flights: searchFlightsByAirport({
+        query: searchParamsData.q,
+        sort: searchParamsData.sort,
+      }),
+    });
+  }
+);
