@@ -64,11 +64,22 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
   return (
     <fetcher.Form
       method="get"
+      role="search"
       onSubmit={handleSubmit}
       action="/flights/search-by-destination"
     >
       <div className="flex gap-x-2 mb-1">
-        <Input name="q" defaultValue={q || ""} aria-label="search departures" />
+        <Input
+          name="q"
+          role="searchbox"
+          id="search-flights"
+          defaultValue={q || ""}
+          aria-label="Search departures"
+          placeholder="Search flights by destination"
+          aria-describedby={
+            isFetcherErrorResponse(fetcher) ? "search-error" : undefined
+          }
+        />
         <Button type="submit" aria-label="submit search">
           <IconSearch aria-hidden="true" />
         </Button>
@@ -76,8 +87,10 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
       {isFetcherErrorResponse(fetcher) &&
         fetcher.data?.issues.map(({ message, path }) => (
           <Typography
-            key={path.join()}
             variant="small"
+            id="search-flights-error"
+            key={path.join()}
+            aria-live="polite"
             className="text-red-500"
           >
             {message}
@@ -85,14 +98,20 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
         ))}
       <button
         type="button"
-        onClick={handleToggleSort}
         data-testid="toggle-flight-sort"
         className="ml-auto flex items-center gap-x-2 row-span-2 mt-4"
+        aria-label={`Sort flights ${
+          sort === "asc" ? "ascending" : "descending"
+        } by expected time`}
       >
         <Typography variant="small" className="font-semibold text-black">
           {sort === "asc" ? "Ascending" : "Descending"}
         </Typography>
-        {sort === "asc" ? <IconArrowUp /> : <IconArrowDown />}
+        {sort === "asc" ? (
+          <IconArrowUp aria-hidden="true" />
+        ) : (
+          <IconArrowDown aria-hidden="true" />
+        )}
       </button>
     </fetcher.Form>
   );
