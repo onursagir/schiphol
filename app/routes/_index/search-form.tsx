@@ -98,6 +98,7 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
         ))}
       <button
         type="button"
+        onClick={handleToggleSort}
         data-testid="toggle-flight-sort"
         className="ml-auto flex items-center gap-x-2 row-span-2 mt-4"
         aria-label={`Sort flights ${
