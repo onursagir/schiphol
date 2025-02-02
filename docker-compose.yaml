@@ -1,0 +1,19 @@
+services:
+  web:
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://web:5173"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    volumes:
+      - ./app:/app/app
+      - ./public:/app/public
+    build:
+      dockerfile: Dockerfile
+      target: dev
+    environment:
+      PORT: 9000
+    ports:
+      - "9000:9000"
