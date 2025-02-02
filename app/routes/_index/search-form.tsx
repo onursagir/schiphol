@@ -68,9 +68,9 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
       action="/flights/search-by-destination"
     >
       <div className="flex gap-x-2 mb-1">
-        <Input name="q" defaultValue={q || ""} />
-        <Button type="submit">
-          <IconSearch />
+        <Input name="q" defaultValue={q || ""} aria-label="search departures" />
+        <Button type="submit" aria-label="submit search">
+          <IconSearch aria-hidden="true" />
         </Button>
       </div>
       {isFetcherErrorResponse(fetcher) &&
@@ -86,6 +86,7 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
       <button
         type="button"
         onClick={handleToggleSort}
+        data-testid="toggle-flight-sort"
         className="ml-auto flex items-center gap-x-2 row-span-2 mt-4"
       >
         <Typography variant="small" className="font-semibold text-black">

@@ -5,3 +5,5 @@ dist
 build
 Dockerfile
 docker-compose.yml
+tests
+tests-examples

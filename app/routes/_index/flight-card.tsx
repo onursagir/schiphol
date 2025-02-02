@@ -25,7 +25,7 @@ export const FlightCard: React.FC<Props> = ({ flight }) => {
   const isDelayed = flight.expectedTime !== flight.originalTime;
 
   return (
-    <Card component="a" href={flight.url}>
+    <Card component="a" href={flight.url} data-testid="flight-card">
       <div className="grid grid-cols-[1fr,auto] w-full items-center">
         <div className="flex flex-col">
           <Typography variant="small"># {flight.flightIdentifier}</Typography>
@@ -46,7 +46,11 @@ export const FlightCard: React.FC<Props> = ({ flight }) => {
                     {dateFormatter.format(originalDateTime)}
                   </Typography>
                 )}
-                <Typography component="span" className="leading-none">
+                <Typography
+                  component="span"
+                  className="leading-none"
+                  data-testid="expected-time"
+                >
                   {dateFormatter.format(expectedDateTime)}
                 </Typography>
               </div>
