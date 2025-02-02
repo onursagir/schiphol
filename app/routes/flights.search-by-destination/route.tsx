@@ -7,7 +7,7 @@ import { asyncDelay } from "~/helpers/async-delay";
 export const loader = makeEnhancedLoader(
   { searchParamsSchema: schema },
   async ({ searchParamsData }) => {
-    await asyncDelay(2000);
+    await asyncDelay(500);
 
     return json({
       flights: searchFlightsByAirport({

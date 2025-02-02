@@ -74,12 +74,13 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
           role="searchbox"
           id="search-flights"
           defaultValue={q || ""}
+          aria-label="Search departures"
           placeholder="Search flights by destination"
           aria-describedby={
             isFetcherErrorResponse(fetcher) ? "search-error" : undefined
           }
         />
-        <Button type="submit" aria-label="Search flights">
+        <Button type="submit" aria-label="submit search">
           <IconSearch aria-hidden="true" />
         </Button>
       </div>
@@ -97,11 +98,11 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
         ))}
       <button
         type="button"
-        onClick={handleToggleSort}
+        data-testid="toggle-flight-sort"
+        className="ml-auto flex items-center gap-x-2 row-span-2 mt-4"
         aria-label={`Sort flights ${
           sort === "asc" ? "ascending" : "descending"
         } by expected time`}
-        className="ml-auto flex items-center gap-x-2 row-span-2 mt-4"
       >
         <Typography variant="small" className="font-semibold text-black">
           {sort === "asc" ? "Ascending" : "Descending"}

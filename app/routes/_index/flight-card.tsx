@@ -28,6 +28,7 @@ export const FlightCard: React.FC<Props> = ({ flight }) => {
     <Card
       component="a"
       href={flight.url}
+      data-testid="flight-card"
       aria-label={`Flight ${flight.flightNumber} to ${
         flight.airport
       }, departing at ${dateFormatter.format(expectedDateTime)}${
@@ -65,6 +66,7 @@ export const FlightCard: React.FC<Props> = ({ flight }) => {
                 <Typography
                   component="time"
                   className="leading-none"
+                  data-testid="expected-time"
                   dateTime={expectedDateTime.toISOString()}
                   aria-label={`Expected departure time: ${dateFormatter.format(
                     expectedDateTime

@@ -39,6 +39,7 @@ export default function Index() {
             <PageMessage
               icon={IconMoodEmpty}
               header="No results found"
+              data-testid="search-flights-empty-state"
               content="Modify your search criteria and try again"
             />
           )}
