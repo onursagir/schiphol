@@ -1,6 +1,6 @@
 import { FetcherWithComponents } from "@remix-run/react";
 import { isFetcherErrorResponse } from "./is-fetcher-error-response";
-import { ErrorResponse } from "./makeEnhancedLoader";
+import { ErrorResponse } from "./make-enhanced-loader";
 
 export function isFetcherValidResponse<T>(
   fetcher: FetcherWithComponents<T>
