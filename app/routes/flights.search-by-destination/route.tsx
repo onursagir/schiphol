@@ -1,5 +1,5 @@
 import { json } from "@remix-run/node";
-import { makeEnhancedLoader } from "~/helpers/makeEnhancedLoader";
+import { makeEnhancedLoader } from "~/helpers/make-enhanced-loader";
 import { searchFlightsByAirport } from "~/services/flights/search-flights-by-airport";
 import { schema } from "./schema";
 import { asyncDelay } from "~/helpers/async-delay";
