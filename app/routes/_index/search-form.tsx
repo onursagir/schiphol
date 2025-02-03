@@ -5,17 +5,17 @@ import { Input } from "~/components/input";
 import { Typography } from "~/components/typography";
 import { isFetcherErrorResponse } from "~/helpers/is-fetcher-error-response";
 import { useSearchFlightsFetcher } from "./use-search-flights-fetcher";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   fetcher: ReturnType<typeof useSearchFlightsFetcher>["fetcher"];
 }
 
 export const SearchForm: React.FC<Props> = ({ fetcher }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const [sort, setSort] = useState(searchParams.get("sort") || "asc");
 
   const q = searchParams.get("q");
-  const sort = searchParams.get("sort") || "asc";
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,7 +24,13 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
 
     const newQ = (formData.get("q") || "") as string;
 
-    setSearchParams({ q: newQ, sort });
+    const newParams = new URLSearchParams({ q: newQ, sort });
+
+    window.history.replaceState(
+      {},
+      "",
+      `${window.location.pathname}?${newParams.toString()}`
+    );
 
     fetcher.submit(
       { q: newQ, sort },
@@ -37,13 +43,15 @@ export const SearchForm: React.FC<Props> = ({ fetcher }) => {
 
     const newSort = sort === "asc" ? "desc" : "asc";
 
-    setSearchParams((prev) => {
-      const newParams = new URLSearchParams(prev);
+    const newParams = new URLSearchParams({ q, sort: newSort });
 
-      newParams.set("sort", newSort);
+    setSort(newSort);
 
-      return newParams;
-    }, {});
+    window.history.replaceState(
+      {},
+      "",
+      `${window.location.pathname}?${newParams.toString()}`
+    );
 
     fetcher.submit(
       { q, sort: newSort },
